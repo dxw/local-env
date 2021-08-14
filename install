@@ -61,20 +61,11 @@ instruct "It will make keeping them up to date easier"
 instruct "You can install most apps using it too!"
 say "See https://brew.sh/ for more information about Homebrew"
 
-ARM64_HOMEBREW=
+say-loud "Configuring Homebrew for the rest of this install..."
 if m1; then
-  if ask_Yn "Use Apple silicon Homebrew by default (recommended)?"; then
-    ARM64_HOMEBREW=1
-    say-loud "Configuring Homebrew for the rest of this install..."
-    eval "$(/usr/local/homebrew/bin/brew shellenv)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  else
-    say-loud "Configuring Homebrew for the rest of this install..."
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    eval "$(/usr/local/homebrew/bin/brew shellenv)"
-  fi
+  eval "$(/usr/local/homebrew/bin/brew shellenv)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
-  sayl-loud "Configuring Homebrew for the rest of this install..."
   eval "$(/usr/local/homebrew/bin/brew shellenv)"
 fi
 pause
@@ -100,13 +91,16 @@ run chsh -s "$(brew --prefix)/bin/zsh" "$USER"
 
 say-loud "Creating default ZSH config..."
 run cp src/zshrc ~/.zshrc
-run sed -i s/^ARM64_HOMEBREW=/ARM64_HOMEBREW=$ARM64_HOMEBREW/ ~/.zshrc
 
 # End ZSH
 
 say-loud "We're done!"
 
 say "We installed Homebrew for installing and managing most software"
+
+if m1; then
+  say "We installed Intel Homebrew as a backup (aliased as 'ibrew')"
+fi
 
 say "We installed the following packages:"
 echo
