@@ -105,5 +105,20 @@ run sed -i s/^ARM64_HOMEBREW=/ARM64_HOMEBREW=$ARM64_HOMEBREW/ ~/.zshrc
 # End ZSH
 
 say-loud "We're done!"
+
+say "We installed Homebrew for installing and managing most software"
+
+say "We installed the following packages:"
+echo
+awk '/^brew /{print}' Brewfile | sort | sed -r 's,^brew "(.+)".*$,\1\n    https://formulae.brew.sh/formula/\1\n,'
+
+say "We installed the following applications:"
+echo
+awk '/^cask /{print}' Brewfile | sort | sed -r 's,^cask "(.+)".*$,\1\n    https://formulae.brew.sh/cask/\1\n,'
+
+say "We set ZSH as the default shell with some default configuration"
+
+pause
+
 instruct "Quit your terminal now"
 say "You might like to use the newly installed iTerm.app in future"
