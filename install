@@ -1,0 +1,82 @@
+#!/bin/bash
+
+set -e
+
+cd "$(dirname "$0")"
+
+source lib/arch.sh
+source lib/print.sh
+source lib/run.sh
+
+say "Welcome to dxw!"
+say "Let's get you set up"
+say "This may take a while, so you might want to find something else to do while we do this"
+say "But don't go away completely! You'll need to do things at points"
+
+if ! ask_yN "Are you ready?"; then
+  say "Goodbye!"
+  exit 1
+fi
+
+# Begin Rosetta
+
+if m1; then
+  say "It looks like you're on a Mac with Apple silicon"
+  say "Installing the Intel compatibility layer, Rosetta"
+  say "You might be asked for your login password and to agree to terms and conditions..."
+  run arch -arm64e softwareupdate --install-rosetta
+fi
+
+# End Rosetta
+
+# Begin Homebrew
+
+if m1; then
+  say "Installing Homebrew for Apple silicon software"
+  say "You might be asked for your login password and to confirm"
+  say "Once you've confirmed, this might take a few minutes..."
+  run arch -arm64e /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  say "Installing Homebrew for Intel software"
+  say "You might be asked for your login password and to confirm"
+  say "Once you've confirmed, this might take a few minutes..."
+  run arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  say "Installing Homebrew"
+  say "You might be asked for your login password and to confirm"
+  say "Once you've confirmed, this might take a few minutes..."
+  run /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+instruct "Homebrew manages software on your machine for you"
+instruct "Try to use it when you need to install new things"
+instruct "It will make keeping them up to date easier"
+instruct "You can install most apps using it too!"
+say "See https://brew.sh/ for more information about Homebrew"
+
+if m1; then
+  if ask_Yn "Use Apple silicon Homebrew by default (recommended)?"; then
+    say "Configuring Homebrew for the rest of this install..."
+    eval "$(/usr/local/homebrew/bin/brew shellenv)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    say "Configuring Homebrew for the rest of this install..."
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$(/usr/local/homebrew/bin/brew shellenv)"
+  fi
+else
+  say "Configuring Homebrew for the rest of this install..."
+  eval "$(/usr/local/homebrew/bin/brew shellenv)"
+  pause
+fi
+
+# End Homebrew
+
+# Begin dependencies via Homebrew
+
+say "Installing recommended packages and apps with Homebrew"
+say "You might be asked for your login password"
+say "This might take a while..."
+run brew bundle install --no-lock
+
+# End dependencies via Homebrew
