@@ -1,7 +1,11 @@
 #!/bin/bash
 
-say() {
+say-loud() {
   echo -e "\x1B[1;32m==> $*\x1B[0m"
+}
+
+say() {
+  echo -e "\x1B[1m==> $*\x1B[0m"
 }
 
 instruct() {

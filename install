@@ -8,19 +8,19 @@ source lib/arch.sh
 source lib/print.sh
 source lib/run.sh
 
-say "Welcome to dxw!"
+say-loud "Welcome to dxw!"
 say "Let's get you set up"
 say "This may take a while, so you might want to find something else to do while we do this"
 say "But don't go away completely! You'll need to do things at points"
 
 if ! ask_yN "Are you ready?"; then
-  say "Goodbye!"
+  say-loud "Goodbye!"
   exit 1
 fi
 
 if ! macos; then
-  say "It looks like you're not running this in macOS"
-  say "We don't support other operating systems, sorry!"
+  instruct "It looks like you're not running this in macOS"
+  instruct "We don't support other operating systems, sorry!"
   exit 1
 fi
 
@@ -28,7 +28,7 @@ fi
 
 if m1; then
   say "It looks like you're on a Mac with Apple silicon"
-  say "Installing the Intel compatibility layer, Rosetta"
+  say-loud "Installing the Intel compatibility layer, Rosetta"
   say "You might be asked for your login password and to agree to terms and conditions..."
   run arch -arm64e softwareupdate --install-rosetta
 fi
@@ -38,17 +38,17 @@ fi
 # Begin Homebrew
 
 if m1; then
-  say "Installing Homebrew for Apple silicon software"
+  say-loud "Installing Homebrew for Apple silicon software"
   say "You might be asked for your login password and to confirm"
   say "Once you've confirmed, this might take a few minutes..."
   run arch -arm64e /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  say "Installing Homebrew for Intel software"
+  say-loud "Installing Homebrew for Intel software"
   say "You might be asked for your login password and to confirm"
   say "Once you've confirmed, this might take a few minutes..."
   run arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-  say "Installing Homebrew"
+  say-loud "Installing Homebrew"
   say "You might be asked for your login password and to confirm"
   say "Once you've confirmed, this might take a few minutes..."
   run /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -64,16 +64,16 @@ ARM64_HOMEBREW=
 if m1; then
   if ask_Yn "Use Apple silicon Homebrew by default (recommended)?"; then
     ARM64_HOMEBREW=1
-    say "Configuring Homebrew for the rest of this install..."
+    say-loud "Configuring Homebrew for the rest of this install..."
     eval "$(/usr/local/homebrew/bin/brew shellenv)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
   else
-    say "Configuring Homebrew for the rest of this install..."
+    say-loud "Configuring Homebrew for the rest of this install..."
     eval "$(/opt/homebrew/bin/brew shellenv)"
     eval "$(/usr/local/homebrew/bin/brew shellenv)"
   fi
 else
-  say "Configuring Homebrew for the rest of this install..."
+  sayl-loud "Configuring Homebrew for the rest of this install..."
   eval "$(/usr/local/homebrew/bin/brew shellenv)"
 fi
 pause
@@ -82,7 +82,7 @@ pause
 
 # Begin dependencies via Homebrew
 
-say "Installing recommended packages and apps with Homebrew"
+say-loud "Installing recommended packages and apps with Homebrew"
 say "You might be asked for your login password"
 say "This might take a while..."
 run brew bundle install --no-lock
@@ -92,17 +92,17 @@ pause
 
 # Begin ZSH
 
-say "Setting ZSH as the default shell"
+say-loud "Setting ZSH as the default shell"
 say "You might be asked for your login password..."
 run sudo echo "$(brew --prefix)/bin/zsh" >> /etc/shells
 run chsh -s "$(brew --prefix)/bin/zsh" "$USER"
 
-say "Creating default ZSH config..."
+say-loud "Creating default ZSH config..."
 run cp src/zshrc ~/.zshrc
 run sed -i s/^ARM64_HOMEBREW=/ARM64_HOMEBREW=$ARM64_HOMEBREW/ ~/.zshrc
 
 # End ZSH
 
-say "We're done!"
+say-loud "We're done!"
 instruct "Quit your terminal now"
 say "You might like to use iTerm.app instead in future (we've just installed it)"
