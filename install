@@ -10,7 +10,8 @@ source lib/run.sh
 
 say-loud "Welcome to dxw!"
 say "Let's get you set up"
-say "This may take a while, so you might want to find something else to do while we do this"
+say "This may take a while..."
+say "You might want to find something else to do while we do this"
 say "But don't go away completely! You'll need to do things at points"
 
 if ! ask_yN "Are you ready?"; then
@@ -105,4 +106,4 @@ run sed -i s/^ARM64_HOMEBREW=/ARM64_HOMEBREW=$ARM64_HOMEBREW/ ~/.zshrc
 
 say-loud "We're done!"
 instruct "Quit your terminal now"
-say "You might like to use iTerm.app instead in future (we've just installed it)"
+say "You might like to use the newly installed iTerm.app in future"
