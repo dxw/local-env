@@ -18,6 +18,12 @@ if ! ask_yN "Are you ready?"; then
   exit 1
 fi
 
+if ! macos; then
+  say "It looks like you're not running this in macOS"
+  say "We don't support other operating systems, sorry!"
+  exit 1
+fi
+
 # Begin Rosetta
 
 if m1; then
