@@ -94,6 +94,16 @@ run cp src/zshrc ~/.zshrc
 
 # End ZSH
 
+# Begin editor
+
+if ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
+  ask "What should we set 'EDITOR' to?"
+  sed -i s/export EDITOR=nano/export EDITOR=\""$REPLY"\"/ ~/.zshrc
+  instruct "You might want to check '$REPLY' is installed after we're done."
+fi
+
+# End editor
+
 say-loud "We're done!"
 
 say "We installed Homebrew for installing and managing most software"
