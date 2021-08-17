@@ -21,7 +21,7 @@ ask_yN() {
   fi
 
   if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
-    check "$*"
+    ask_yN "$*"
   fi
 
   return 0
@@ -36,7 +36,7 @@ ask_Yn() {
   fi
 
   if [ "$REPLY" != "n" ] && [ "$REPLY" != "N" ]; then
-    check "$*"
+    ask_Yn "$*"
   fi
 
   return 1
