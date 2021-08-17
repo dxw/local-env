@@ -20,6 +20,10 @@ might need other bits and pieces for a project, but this should do the basics.
 It's a guided process, so you'll need to stick around and follow the
 instructions.
 
+**This is a set of suggestions and recommendations only!** If you disagree with
+any of what it does, please feel free to change it before or after doing this
+set up (see step 4 below).
+
 ## How do I use this?
 
 1. Open a terminal!
