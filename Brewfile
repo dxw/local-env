@@ -48,6 +48,7 @@ tap "heroku/brew"
 brew "tfenv"
 brew "tflint"
 brew "heroku/brew/heroku"
+brew "awscli"
 
 # Documentation stuff
 brew "adr-tools"
