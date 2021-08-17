@@ -42,6 +42,15 @@ ask_Yn() {
   return 1
 }
 
+ask() {
+  echo -en "\x1B[1;35m==? $* \x1B[0m"
+  read -r
+
+  if [ -z "$REPLY" ]; then
+    ask "$*"
+  fi
+}
+
 pause() {
   echo -en "\x1B[1;35m==? Press enter to continue...\x1B[0m"
   read -r
