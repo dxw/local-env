@@ -18,7 +18,6 @@ brew "zsh"
 
 # Database(ish) stuff
 brew "mysql", restart_service: true
-brew "postgresql", restart_service: true
 brew "redis", restart_service: true
 
 # Virtual environment stuff

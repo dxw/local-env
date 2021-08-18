@@ -94,7 +94,25 @@ run cp src/zshrc ~/.zshrc
 
 # End ZSH
 
-# Begin editor
+# Begin choices
+
+instruct "Now you'll need to answer some questions about preferences"
+instruct "Don't know what a question is asking about?"
+instruct "You probably want the default option"
+instruct "(Press return without giving an answer)"
+
+HEADLESS_POSTGRESQL=
+if ask_Yn "Are you content with running Postgresql as a headless service?"; then
+  HEADLESS_POSTGRESQL=1
+  say-loud "Installing Postgresql..."
+  say "You might be asked for your login password..."
+  brew install postgresql
+  brew services start postgresql
+else
+  say-loud "Installing Postgres.app..."
+  say "You might be asked for your login password..."
+  brew install postgres-unofficial
+fi
 
 if ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
   ask "What should we set 'EDITOR' to?"
@@ -102,7 +120,7 @@ if ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
   instruct "You might want to check '$REPLY' is installed after we're done."
 fi
 
-# End editor
+# End choices
 
 say-loud "We're done!"
 
@@ -119,6 +137,12 @@ awk '/^brew /{print}' Brewfile | sort | sed -r 's,^brew "(.+)".*$,\1\n    https:
 say "We installed the following applications:"
 echo
 awk '/^cask /{print}' Brewfile | sort | sed -r 's,^cask "(.+)".*$,\1\n    https://formulae.brew.sh/cask/\1\n,'
+
+if [ -n "$HEADLESS_POSTGRESQL" ]; then
+  say "We installed Postgresql as a service"
+else
+  say "We installed Postgres.app"
+fi
 
 say "We set ZSH as the default shell with some default configuration"
 
