@@ -172,8 +172,4 @@ bindkey '^[[B' history-substring-search-down
 
 export EDITOR=nano
 
-if command -v code >/dev/null 2>&1; then
-  export VISUAL=code
-fi
-
 # END local-env
