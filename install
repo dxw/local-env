@@ -42,20 +42,20 @@ if m1; then
   say-loud "Installing Homebrew for Apple silicon software"
   say "You might be asked for your login password and to confirm"
   say "Once you've confirmed, this might take a few minutes..."
-  echo -e "\x1B[1;34m==\$ arch -arm64e /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\x1B[0m"
-  arch -arm64e /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # shellcheck disable=SC2016
+  run 'arch -arm64e /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
   say-loud "Installing Homebrew for Intel software"
   say "You might be asked for your login password and to confirm"
   say "Once you've confirmed, this might take a few minutes..."
-  echo -e "\x1B[1;34m==\$ arch -x86_64 /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\x1B[0m"
-  arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # shellcheck disable=SC2016
+  run 'arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 else
   say-loud "Installing Homebrew"
   say "You might be asked for your login password and to confirm"
   say "Once you've confirmed, this might take a few minutes..."
-  echo -e "\x1B[1;34m==\$ /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\x1B[0m"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  # shellcheck disable=SC2016
+  run '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 fi
 
 instruct "Homebrew manages software on your machine for you"
