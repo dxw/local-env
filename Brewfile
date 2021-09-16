@@ -29,7 +29,6 @@ brew "rbenv"
 # WordPress stuff
 tap "dxw/tap"
 brew "composer"
-brew "phpenv"
 brew "dxw/tap/whippet"
 
 # Scripting stuff
