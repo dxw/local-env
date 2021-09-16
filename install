@@ -120,8 +120,8 @@ else
 fi
 
 if ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
-  ask "What should we set 'EDITOR' to?"
-  sed -i s/export EDITOR=nano/export EDITOR=\""$REPLY"\"/ ~/.zshrc
+  ask "What should we set 'EDITOR' to? [command name only, not a path]"
+  sed -i '' 's/export EDITOR=nano/export EDITOR="'"$REPLY"'"/' ~/.zshrc
   instruct "You might want to check '$REPLY' is installed after we're done."
 fi
 
