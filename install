@@ -90,7 +90,8 @@ pause
 say-loud "Setting ZSH as the default shell"
 say "You might be asked for your login password..."
 # shellcheck disable=SC2016
-run 'sudo echo "$(brew --prefix)/bin/zsh" >> /etc/shells'
+run 'echo "$(brew --prefix)/bin/zsh" | sudo tee -a /etc/shells'
+
 # shellcheck disable=SC2016
 run 'chsh -s "$(brew --prefix)/bin/zsh" "$USER"'
 
