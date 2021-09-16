@@ -31,7 +31,7 @@ if m1; then
   say "It looks like you're on a Mac with Apple silicon"
   say-loud "Installing the Intel compatibility layer, Rosetta"
   say "You might be asked for your login password and to agree to terms and conditions..."
-  run arch -arm64e softwareupdate --install-rosetta
+  run 'arch -arm64e softwareupdate --install-rosetta'
 fi
 
 # End Rosetta
@@ -80,7 +80,7 @@ pause
 say-loud "Installing recommended packages and apps with Homebrew"
 say "You might be asked for your login password"
 say "This might take a while..."
-run brew bundle install --no-lock
+run 'brew bundle install --no-lock'
 pause
 
 # End dependencies via Homebrew
@@ -89,11 +89,13 @@ pause
 
 say-loud "Setting ZSH as the default shell"
 say "You might be asked for your login password..."
-run sudo echo "$(brew --prefix)/bin/zsh" >> /etc/shells
-run chsh -s "$(brew --prefix)/bin/zsh" "$USER"
+# shellcheck disable=SC2016
+run 'sudo echo "$(brew --prefix)/bin/zsh" >> /etc/shells'
+# shellcheck disable=SC2016
+run 'chsh -s "$(brew --prefix)/bin/zsh" "$USER"'
 
 say-loud "Creating default ZSH config..."
-run cp src/zshrc ~/.zshrc
+run 'cp src/zshrc ~/.zshrc'
 
 # End ZSH
 
