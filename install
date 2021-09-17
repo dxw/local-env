@@ -58,12 +58,6 @@ else
   run '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 fi
 
-instruct "Homebrew manages software on your machine for you"
-instruct "Try to use it when you need to install new things"
-instruct "It will make keeping them up to date easier"
-instruct "You can install most apps using it too!"
-say "See https://brew.sh/ for more information about Homebrew"
-
 say-loud "Configuring Homebrew for the rest of this install..."
 if m1; then
   eval "$(/usr/local/homebrew/bin/brew shellenv)"
@@ -71,6 +65,12 @@ if m1; then
 else
   eval "$(/usr/local/homebrew/bin/brew shellenv)"
 fi
+
+instruct "Homebrew manages software on your machine for you"
+instruct "Try to use it when you need to install new things"
+instruct "It will make keeping them up to date easier"
+instruct "You can install most apps using it too!"
+say "See https://brew.sh/ for more information about Homebrew"
 pause
 
 # End Homebrew
