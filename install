@@ -98,8 +98,19 @@ fi
 # shellcheck disable=SC2016
 run 'chsh -s "$(brew --prefix)/bin/zsh" "$USER"'
 
-say-loud "Creating default ZSH config..."
-run 'cp src/zshrc ~/.zshrc'
+DEFAULT_ZSHRC=
+if ! [ -f ~/.zshrc ]; then
+  DEFAULT_ZSHRC=1
+elif ask_Yn "Do you want to overwrite your existing ZSH config?"; then
+  DEFAULT_ZSHRC=1
+  say-loud "Creating a backup..."
+  run 'mv ~/.zshrc ~/.zshrc.bak'
+fi
+
+if [ -n "$DEFAULT_ZSHRC" ]; then
+  say-loud "Creating default ZSH config..."
+  run 'cp src/zshrc ~/.zshrc'
+fi
 
 # End ZSH
 
@@ -123,7 +134,7 @@ else
   brew install postgres-unofficial
 fi
 
-if ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
+if [ -n "$DEFAULT_ZSHRC" ] && ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
   ask "What should we set 'EDITOR' to? [command name only, not a path]"
   sed -i '' 's/export EDITOR=nano/export EDITOR="'"$REPLY"'"/' ~/.zshrc
   instruct "You might want to check '$REPLY' is installed after we're done."
@@ -136,7 +147,11 @@ say-loud "We're done!"
 say "We installed Homebrew for installing and managing most software"
 
 if m1; then
-  say "We installed Intel Homebrew as a backup (aliased as 'ibrew')"
+  if [ -n "$DEFAULT_ZSHRC" ]; then
+    say "We installed Intel Homebrew as a backup (aliased as 'ibrew')"
+  else
+    say "We installed Intel Homebrew as a backup"
+  fi
 fi
 
 say "We installed the following packages:"
@@ -153,9 +168,13 @@ else
   say "We installed Postgres.app"
 fi
 
-say "We set ZSH as the default shell with some default configuration"
+if [ -n "$DEFAULT_ZSHRC" ]; then
+  say "We set ZSH as the default shell with some default configuration"
+else
+  say "We set ZSH as the default shell"
+fi
 
 pause
 
-instruct "Quit your terminal now"
+instruct "Quit your terminal when you're done"
 say "You might like to use the newly installed iTerm.app in future"
