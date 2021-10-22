@@ -126,13 +126,16 @@ if ask_Yn "Are you content with running Postgresql as a headless service?"; then
   HEADLESS_POSTGRESQL=1
   say-loud "Installing Postgresql..."
   say "You might be asked for your login password..."
-  brew install postgresql
-  brew services start postgresql
+  run brew install postgresql
+  run brew services start postgresql
 else
   say-loud "Installing Postgres.app..."
   say "You might be asked for your login password..."
-  brew install postgres-unofficial
+  run brew install postgres-unofficial
 fi
+
+say "Making a postgres user, which might already exist..."
+run createuser -s postgres || true
 
 if [ -n "$DEFAULT_ZSHRC" ] && ! ask_Yn "Are you content with using nano as your 'EDITOR'?"; then
   ask "What should we set 'EDITOR' to? [command name only, not a path]"
