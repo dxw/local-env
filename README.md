@@ -62,6 +62,42 @@ set up (see step 4 below).
 
 1. Celebrate your new environment by giving feedback on the process in Slack!
 
+## Troubleshooting
+
+If you find that you get errors from `brew install`, such as:
+
+```sh
+ % brew install ...
+Error: Cannot install in Homebrew on ARM processor in Intel default prefix (/usr/local)!
+Please create a new installation in /opt/homebrew using one of the
+"Alternative Installs" from:
+  https://docs.brew.sh/Installation
+You can migrate your previously installed formula list with:
+  brew bundle dump
+%
+```
+
+then you will need to update your shell configuration. Open your `~/.zshrc` or
+`~/.bashrc` file and add the following line:
+
+```sh
+export PATH=/opt/homebrew/bin:$PATH
+```
+
+Then reload your configuration in your terminal with either:
+
+```sh
+source ~/.zshrc
+```
+
+or:
+
+```sh
+source ~/.bashrc
+```
+
+and run `brew install` again.
+
 ## This doesn't work!
 
 Let us know!
