@@ -85,6 +85,30 @@ pause
 
 # End dependencies via Homebrew
 
+# Begin Nerd Font
+
+say-loud "Installing Fira Code Nerd Font"
+say-loud "This adds support for icons used in custom prompts"
+say-loud "E.g. Starship, which was installed via Homebrew"
+say-loud "You might be asked for permission to modify your Terminal settings"
+run_with_retry 'echo "tell app \"Terminal\" to set font name of settings set \"Basic\" to \"FiraCodeNerdFontComplete-Retina\"" | osascript;'
+
+DEFAULT_ITERM2=
+if ! [ -f ~/Library/Preferences/com.googlecode.iterm2.plist ]; then
+  DEFAULT_ITERM2=1
+elif ask_Yn "Do you want to overwrite your existing iTerm2 settings (to apply the font)?"; then
+  DEFAULT_ITERM2=1
+  say-loud "Creating a backup..."
+  run 'mv ~/Library/Preferences/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist.bak'
+fi
+
+if [ -n "$DEFAULT_ITERM2" ]; then
+  say-loud "Creating default iTerm2 settings..."
+  run 'cp src/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist'
+fi
+
+# End Nerd Font
+
 # Begin ZSH
 
 say-loud "Setting ZSH as the default shell"
