@@ -67,8 +67,10 @@ cask "google-chrome"
 cask "microsoft-edge"
 
 # Terminal stuff
+tap "homebrew/cask-fonts"
 brew "direnv"
 brew "starship"
+cask "font-fira-code-nerd-font"
 cask "iterm2"
 
 # Programming stuff
