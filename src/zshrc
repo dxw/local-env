@@ -170,6 +170,11 @@ bindkey -M menuselect '^o' accept-and-infer-next-history
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Use the provided Bash autocompletion for adr-tools. Note that there are other
+# scripts in this directory, but not all of them work well with zsh.
+autoload -U +X bashcompinit && bashcompinit
+source $(brew --prefix)/etc/bash_completion.d/adr-tools
+
 export EDITOR=nano
 
 # END local-env
