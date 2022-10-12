@@ -137,10 +137,6 @@ if command -v nodenv >/dev/null 2>&1; then
   eval "$(nodenv init -)"
 fi
 
-if command -v phpenv >/dev/null 2>&1; then
-  eval "$(phpenv init -)"
-fi
-
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
