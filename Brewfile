@@ -26,9 +26,15 @@ cask "docker"
 # Ruby stuff
 brew "rbenv"
 
+# PHP stuff
+brew "php@7.4"
+brew "php@8.0"
+brew "php@8.1"
+brew "php-version"
+brew "composer"
+
 # WordPress stuff
 tap "dxw/tap"
-brew "composer"
 brew "dxw/tap/whippet"
 
 # Scripting stuff

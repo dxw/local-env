@@ -137,6 +137,11 @@ if command -v nodenv >/dev/null 2>&1; then
   eval "$(nodenv init -)"
 fi
 
+if [[ -f "$(brew --prefix php-version)/php-version.sh" ]]; then
+  # shellcheck source=/dev/null
+  source "$(brew --prefix php-version)/php-version.sh" && php-version 7.4
+fi
+
 alias -g ...='../..'
 alias -g ....='../../..'
 alias -g .....='../../../..'
