@@ -27,6 +27,7 @@ cask "docker"
 brew "rbenv"
 
 # PHP stuff
+tap "wilmoore/formulae"
 brew "shivammathur/php/php@7.4"
 brew "php@8.0"
 brew "php@8.1"
