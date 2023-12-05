@@ -66,10 +66,19 @@ zstyle ':completion::complete:*' cache-path "$ZSH_CACHE_DIR"
 autoload -Uz compinit
 compinit
 
+# Use ssh-agent as an SSH agent.
 if command -v ssh-agent >/dev/null 2>&1; then
   eval "$(ssh-agent)"
   ssh-add --apple-load-keychain
 fi
+
+# Use 1Password as an ssh-agent. This is not the industry-standard, which is
+# why we don't enable it by default, but using 1Password means that you will
+# not have to regenerate all your SSH keys if you move to a new machine.
+#
+# See:
+#     https://developer.1password.com/docs/ssh/get-started#step-4-configure-your-ssh-or-git-client
+# export SSH_AUTH_SOCK=$HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
 # zgen settings
 # shellcheck disable=SC2034
