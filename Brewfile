@@ -1,10 +1,5 @@
 # Homebrew stuff
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-drivers"
-tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
-tap "homebrew/core"
 tap "homebrew/services"
 brew "mas"
 
@@ -75,7 +70,6 @@ cask "google-chrome"
 cask "microsoft-edge"
 
 # Terminal stuff
-tap "homebrew/cask-fonts"
 brew "direnv"
 brew "starship"
 cask "font-fira-code-nerd-font"
