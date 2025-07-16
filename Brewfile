@@ -26,6 +26,8 @@ tap "wilmoore/formulae"
 brew "php@8.0"
 brew "php@8.1"
 brew "php@8.2"
+brew "php@8.3"
+brew "php@8.4"
 brew "php-version"
 brew "composer"
 
