@@ -80,7 +80,7 @@ pause
 say-loud "Installing recommended packages and apps with Homebrew"
 say "You might be asked for your login password"
 say "This might take a while..."
-run_with_retry 'brew bundle install --no-lock --verbose'
+run_with_retry 'brew bundle install --verbose'
 pause
 
 # End dependencies via Homebrew
