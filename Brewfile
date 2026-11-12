@@ -23,10 +23,9 @@ brew "rbenv"
 
 # PHP stuff
 tap "wilmoore/formulae"
-brew "shivammathur/php/php@7.4"
-brew "php@8.0"
-brew "php@8.1"
-brew "php@8.2"
+brew "php@8.3"
+brew "php@8.4"
+brew "php@8.5"
 brew "php-version"
 brew "composer"
 
